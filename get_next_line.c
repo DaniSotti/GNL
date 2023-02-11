@@ -6,7 +6,7 @@
 /*   By: dde-sott <dde-sott@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:03:55 by dde-sott          #+#    #+#             */
-/*   Updated: 2023/02/02 00:17:36 by dde-sott         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:16:47 by dde-sott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_next_line(int fd)
 				buffer[j++] = buffer[i];
 			if (buffer[i] == '\n')
 				is_nline = 1;
-			buffer[i++] = '\0';
+			buffer[i++] = 0;
 		}
 	}
 	return (temp);

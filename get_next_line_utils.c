@@ -6,7 +6,7 @@
 /*   By: dde-sott <dde-sott@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 22:38:25 by dde-sott          #+#    #+#             */
-/*   Updated: 2023/02/02 00:17:46 by dde-sott         ###   ########.fr       */
+/*   Updated: 2023/02/11 12:25:57 by dde-sott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	ft_strlen(char *str)
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i])
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (str[i] == '\n')
 		i++;
 	return (i);
 }
@@ -34,7 +36,7 @@ char	*ft_strjoin(char *temp, char *buffer)
 	i = 0;
 	j = 0;
 	if (!newstr)
-		return (0);
+		return (NULL);
 	while (temp && temp[i])
 		newstr[j++] = temp[i++];
 	free (temp);
@@ -56,5 +58,5 @@ char	*ft_clean_buffer(char *buffer)
 	i = 0;
 	while (buffer[i])
 		buffer[i++] = 0;
-	return (0);
+	return (NULL);
 }
