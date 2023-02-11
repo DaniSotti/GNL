@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dde-sott <dde-sott@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 22:03:55 by dde-sott          #+#    #+#             */
-/*   Updated: 2023/02/02 00:17:36 by dde-sott         ###   ########.fr       */
+/*   Created: 2023/01/23 21:05:56 by dde-sott          #+#    #+#             */
+/*   Updated: 2023/02/02 00:13:51 by dde-sott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buf[FOPEN_MAX][BUFFER_SIZE + 1];
 	char		*temp;
-	int			i;
-	int			j;
 	int			is_nline;
 
+	if (fd < 0 || fd > FOPEN_MAX)
+		return (NULL);
 	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
-		return (ft_clean_buffer(buffer));
+		return (ft_clean_buffer(buf[fd]));
 	temp = NULL;
 	is_nline = 0;
-	while (!is_nline && (buffer[0] || read(fd, buffer, BUFFER_SIZE) > 0))
+	while (!is_nline && (buf[fd][0] || read(fd, buf[fd], BUFFER_SIZE) > 0))
 	{
-		temp = ft_strjoin(temp, buffer);
-		i = 0;
-		j = 0;
-		while (buffer[i])
-		{
-			if (is_nline)
-				buffer[j++] = buffer[i];
-			if (buffer[i] == '\n')
-				is_nline = 1;
-			buffer[i++] = '\0';
-		}
+		temp = ft_strjoin(temp, buf[fd]);
+		is_nline = ft_is_nline(buf[fd]);
 	}
 	return (temp);
 }
